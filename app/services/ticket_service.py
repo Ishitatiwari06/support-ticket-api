@@ -134,10 +134,18 @@ def bulk_remove_tickets(
             Ticket.id.in_(ticket_ids),
         ).all()
         for ticket in tickets:
-            queue.current_ticket_count -= ticket.quantity
+            # fixed
+            queue.current_ticket_count = max(
+                0,
+                queue.current_ticket_count - ticket.quantity
+            )
             db.delete(ticket)
     else:
         for ticket in list(queue.tickets):
-            queue.current_ticket_count -= ticket.quantity
+            # fixed
+            queue.current_ticket_count = max(
+                0,
+                queue.current_ticket_count - ticket.quantity
+            )
             db.delete(ticket)
     db.commit()
