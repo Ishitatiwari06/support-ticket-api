@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-
+from typing import Optional #fixed
 
 # --- Queue ---
 class QueueCreate(BaseModel):
@@ -50,7 +50,7 @@ class TicketResponse(BaseModel):
 
 
 class TicketDetailResponse(TicketResponse):
-    queue_id: str
+    queue_id: Optional[str] = None #fixed
 
 
 class TicketComplexityUpdate(BaseModel):
