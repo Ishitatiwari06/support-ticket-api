@@ -2,5 +2,9 @@ fastapi>=0.109.0
 uvicorn[standard]>=0.27.0
 sqlalchemy>=2.0.0
 pydantic-settings>=2.0.0
+<<<<<<< HEAD
 # pydantic==1.10.13 #bug fix-1 use 2.7.0 version as this one is not supported for python 3.14
 pydantic>=2.7.0
+=======
+pydantic==1.10.13
+>>>>>>> e9fde29778d10b5a8e6d9cb7b4e35294b0b0bc62
