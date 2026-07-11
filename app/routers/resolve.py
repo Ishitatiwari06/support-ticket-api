@@ -20,7 +20,7 @@ def resolve_ticket(data: ResolveRequest, db: Session = Depends(get_db)):
         result = resolve_service.resolve(db, data.ticket_id, data.effort_logged)
         return ResolveResponse(**result)
     except ValueError as e:
-        if e.args[0] == "ticket_not_found":
+        if e.args[0] == "ticket_not_found": #changed str(e) to e.args[0] as e contains 3 args (error,effort_logged,complexity)
             raise HTTPException(status_code=404, detail="Ticket not found")
         if e.args[0] == "out_of_stock":
             raise HTTPException(
