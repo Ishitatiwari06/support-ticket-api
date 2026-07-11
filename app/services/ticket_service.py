@@ -64,11 +64,16 @@ def bulk_add_tickets(db: Session, queue_id: str, entries: list[TicketBulkEntry])
     if not queue:
         raise ValueError("queue_not_found")
     added = 0
+    #fixed
+    total_new_quantity = sum(e.quantity for e in entries if e.quantity > 0)
+    if queue.current_ticket_count + total_new_quantity > queue.capacity:
+        raise ValueError("capacity_exceeded")
     for e in entries:
         if e.quantity <= 0:
             continue
         ticket = Ticket(title=e.title, complexity=e.complexity, queue_id=queue_id, quantity=e.quantity)
         db.add(ticket)
+        queue.current_ticket_count += e.quantity #fixed
         added += 1
         db.commit()
         time.sleep(0.05)  # demo: widens race window vs resolve
